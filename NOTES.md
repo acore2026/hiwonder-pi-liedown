@@ -5,7 +5,7 @@
 >
 > 🚀 **从零部署 / 换新机器人**：看 [部署手册.md](部署手册.md)（源码在 `src/`，Windows 镜像在 `C:\robot\kit\`，不需要 AI 协助即可完成）
 > 🩺 **硬件不动了**：看 `src/diagnostics/README.md` 的诊断阶梯（哔声→IMU→裸串口→重插排座）
-> ☁️ **远程仓库**：https://github.com/DylanMing/hiwonder-pi-liedown （推送：WSL2 里 `git push` 首次要 PAT 令牌，输一次永久存；或借道 Windows 已存凭据——镜像到 C: 后 `git -C <路径> push`）
+> ☁️ **远程仓库**：https://github.com/acore2026/hiwonder-pi-liedown （remote 走 SSH：`git@github.com:acore2026/hiwonder-pi-liedown.git`，本机 `~/.ssh/id_ed25519` 已授权，直接 `git push` 即可）
 
 ---
 
