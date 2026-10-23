@@ -202,17 +202,23 @@ sudo nmcli con up HW-9E00B2EB
 
 ## 四、运维手册
 
-### 机器人开机联网逻辑（2026-10-13 已调优）
+### 机器人开机联网逻辑（2026-10-23 起 1号 加 dev 看门狗）
 
 开机 → NetworkManager 扫描 → 按**优先级**依次尝试（全部 autoconnect=yes）：
 
 | 优先级 | 连接 | 说明 |
 |---|---|---|
-| 20 | `RobotLink` | 电脑热点，可见就连它（**首选**） |
+| **30** | `dev`（仅 1号） | **另一台电脑的热点**（5GHz ch44，密码 huawei123）——可见就连它 |
+| 20 | `RobotLink` | 电脑热点，dev 不在时的首选 |
 | 10 / 5 | `acn` / `acn-mobile-hotpot` | acn 手机热点（两个重复配置，无害） |
 | 1 | `HW-9E00B2EB` | 都连不上时自己广播热点兜底（WPA/hiwonder，共享模式 10.42.0.1）→ 手机连它可走第六章桥接应急 |
 
-依赖链：机器人有网 ⟸ 电脑开着 RobotLink 热点 ⟸ 电脑开机 + WiFi 连着 acn（外网）。
+**⚠️ NetworkManager 的坑**：优先级只在"选网"时生效（开机/断线重连）——**连着 RobotLink 时即使 dev 出现也不会自动跳槽**。
+→ 1号 已部署 **dev-watchdog** systemd 服务（`src/dev_watchdog.sh` + `deploy/dev-watchdog.service`）：
+每 60 秒巡检，"不在 dev 且 dev 可见"就切换。**这才是真正的"永久优先 dev"**（2026-10-23 实测：80 秒内自动跳槽）。
+2号 尚未配 dev——开机后照抄：`nmcli` 加 dev 配置（优先级 30）+ 装 dev-watchdog 服务。
+
+依赖链：机器人有网 ⟸ dev 或 RobotLink 至少一个在广播。
 调优先级命令：`sudo nmcli con modify <名字> connection.autoconnect-priority <数字>`
 
 ### 机器人重启后（约 1~2 分钟回网）

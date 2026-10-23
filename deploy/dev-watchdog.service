@@ -1,0 +1,11 @@
+[Unit]
+Description=Prefer dev WiFi hotspot permanently (watchdog)
+After=NetworkManager.service
+
+[Service]
+ExecStart=/bin/bash /home/pi/dev_watchdog.sh
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
