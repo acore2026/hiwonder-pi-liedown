@@ -340,8 +340,9 @@ sshpass 首登（pi/raspberrypi）→ 部署公钥 + fall/stand/fall_demo 脚本
 | 项目 | 值 |
 |---|---|
 | 电脑热点（当前） | `RobotLink` / `hiwonder`（Windows 移动热点，2.4GHz） |
+| **另一台电脑热点** | `dev` / `huawei123`（5GHz 信道 44；1号 已配置，优先级 30 高于 RobotLink——dev 在覆盖范围内时机器人优先连它） |
 | 电脑外网 WiFi | `acn-mobile-hotpot` / `td1234567`（2.4GHz 蜂窝） |
-| 机器人 IP | 1号 `192.168.137.72` / 2号 `192.168.137.172`（DHCP，可能漂移） |
+| 机器人 IP | 1号 `192.168.137.72` / 2号 `192.168.137.172`（DHCP，可能漂移；**连 dev 时 IP 由那台电脑重新分配**） |
 | 电脑热点网关 IP | `192.168.137.1`（= 回调目标地址） |
 | 机器人 SSH/VNC | `pi` / `raspberrypi`（两台相同） |
 | 机器人兜底热点 | 1号 `HW-9E00B2EB` / 2号 `HW-BACKUP2`，密码均 `hiwonder` |
@@ -349,6 +350,7 @@ sshpass 首登（pi/raspberrypi）→ 部署公钥 + fall/stand/fall_demo 脚本
 | 手机（桥接备用） | Xiaomi 12S Pro（序列号略），adb 在 `C:\Users\Public\platform-tools\` |
 | HTTP 服务端口 | 机器人 :8090（fall_server）；本机 :9000（cb_listener） |
 | 部署包 | WSL `~/hiwonder/src/` ＝ Windows 镜像 `C:\robot\kit\`（改代码改一处，cp 镜像另一处） |
+| 远程代码 | GitHub `DylanMing/hiwonder-pi-liedown` ＋ ACN 服务器 `/root/zqm/hiwonder-tonypi`（git pull 更新） |
 
 ## 八、待办 / 展望
 
